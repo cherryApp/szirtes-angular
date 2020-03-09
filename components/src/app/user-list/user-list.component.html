@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>email</th>
+          <th>active</th>
+          <th>show</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>{{ list[0].id }}</td>
+          <td>{{ list[0].name }}</td>
+          <td>{{ list[0].email }}</td>
+          <td>{{ list[0].active }}</td>
+          <td>
+            <button (click)="selectUser(0)" class="btn btn-info">
+              edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <app-user-edit
+      [user]="selectedUser"
+      (updated)="userUpdated($event)"></app-user-edit>
+  </div>
+</div>

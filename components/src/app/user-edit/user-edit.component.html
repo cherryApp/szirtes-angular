@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-12">
+    <h3>{{ currentUser.name }}</h3>
+    <div class="input-checkbox">
+      <label>
+        Active:
+        <input type="checkbox" [(ngModel)]="currentUser.active">
+      </label>
+    </div>
+    <button (click)="onUpdate()" class="btn btn-primary">
+      ok
+    </button>
+  </div>
+</div>
