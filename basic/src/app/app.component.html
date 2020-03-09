@@ -1,0 +1,52 @@
+<div class="conatiner">
+  <div class="row">
+    <div class="col-12">
+      <!-- Interpolation. -->
+      <h1>{{ title }} {{ counter }}</h1>
+
+      <!-- Property binding. -->
+      <div class="row">
+        <div class="col-12">
+          <button 
+            [class.text-dark]="counter % 2 === 1" 
+            [disabled]="counter % 2 === 0" 
+            [ngClass]="getButtonStyles()"
+            class="btn">
+              Example for property binding
+          </button>
+        </div>
+      </div>
+
+      <!-- Event binding. -->
+      <div class="row">
+        <div class="col-12">
+          <button (click)="resetCounter()" class="btn btn-secondary mt-3">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Two-way data binding. -->
+      <div class="row">
+        <div class="col-4">
+          <input 
+            name="counter"
+            type="number" 
+            class="form-control mt-3" 
+            [value]="counter" 
+            (input)="counter = $event.target.value">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <input 
+            name="counter"
+            type="number" 
+            class="form-control mt-3" 
+            [(ngModel)]="counter">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
