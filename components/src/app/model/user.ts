@@ -1,6 +1,10 @@
 export class User {
-    id?: string | number;
-    name?: string;
-    email?: string;
-    active?: boolean;
+  id?: number;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  gender?: 'Male' | 'Female';
+  city?: string;
+  address?: string;
+  active: boolean = true;
 }

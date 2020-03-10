@@ -1,26 +1,68 @@
+<!-- <div class="row">
+  <div class="col-12">
+    Items: {{ (list | async)?.length }}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-4">
+    <h3>Manage columns: </h3>
+    <select #colSelect name="columns" class="form-control mt-2" multiple>
+      <option *ngFor="let col of cols" [value]="col.key">
+        {{ col.title }}
+      </option>
+    </select>
+    <button
+      (click)="changeColumnVisibility(colSelect)" class="btn btn-info mt-2 mb-3">
+      <i class="fa fa-save"></i>
+    </button>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-3 offset-6">
+    <select [(ngModel)]="filterKey" class="form-control mt-2">
+      <option value="">any key ...</option>
+      <option *ngFor="let col of cols" [value]="col.key">
+        {{ col.title }}
+      </option>
+    </select>
+  </div>
+  <div class="col-3">
+    <input
+      placeholder="filter ..."
+      [(ngModel)]="phrase"
+      type="text"
+      class="form-control mt-2 mb-2">
+  </div>
+</div>
+
 <div class="row">
   <div class="col-12">
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>id</th>
-          <th>name</th>
-          <th>email</th>
-          <th>active</th>
+          <th [hidden]="col.hidden" *ngFor="let col of cols">
+            {{ col.title }}
+          </th>
           <th>show</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr>
-          <td>{{ list[0].id }}</td>
-          <td>{{ list[0].name }}</td>
-          <td>{{ list[0].email }}</td>
-          <td>{{ list[0].active }}</td>
+        <tr *ngFor="let user of list | async | filter:phrase:filterKey">
+          <td [hidden]="col.hidden" *ngFor="let col of cols">
+            {{ user[col.key] }}
+          </td>
           <td>
-            <button (click)="selectUser(0)" class="btn btn-info">
-              edit
-            </button>
+            <div class="btn-group">
+              <button (click)="selectUser(user)" class="btn btn-info">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button (click)="deleteUser(user)" class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
