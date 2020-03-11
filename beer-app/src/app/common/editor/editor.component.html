@@ -1,1 +1,35 @@
-<p>editor works!</p>
+{{ formData | json }}
+
+<h2>Editor</h2>
+<form #editorForm="ngForm" (ngSubmit)="onSubmit(editorForm)">
+  <mat-form-field *ngFor="let col of cols">
+    <mat-label>{{ col.title }}</mat-label>
+    <div [ngSwitch]="col.controlType">
+      <mat-select
+        [(ngModel)]="formData[col.key]"
+        [name]="col.key"
+        *ngSwitchCase="'select'">
+          <mat-option *ngFor="let o of col.options"
+            [value]="o">{{ o }}</mat-option>
+      </mat-select>
+      <input
+        *ngSwitchDefault
+        required
+        [pattern]="col.pattern || '.*'"
+        [name]="col.key"
+        matInput
+        type="text"
+        [(ngModel)]="formData[col.key]">
+    </div>
+      <mat-error [class.hidden]="editorForm.controls[col.key]?.errors?.pattern">
+        {{ col.errorMessage || 'The field is invalid.' }}
+      </mat-error>
+      <mat-error [class.hidden]="editorForm.controls[col.key]?.errors?.required">
+        {{ 'The field is required.' }} {{ editorForm.controls[col.key]?.errors | json }}
+      </mat-error>
+  </mat-form-field>
+
+  <button [disabled]="editorForm.form.invalid" mat-raised-button color="primary">
+    <mat-icon>save</mat-icon>
+  </button>
+</form>

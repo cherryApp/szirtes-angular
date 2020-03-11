@@ -37,4 +37,8 @@ export class BeerComponent implements OnInit {
     this.dataSub.unsubscribe();
   }
 
+  onDelete(beer: any): void {
+    this.beerService.delete(beer.id).toPromise().then( () => {} );
+  }
+
 }

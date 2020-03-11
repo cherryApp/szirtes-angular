@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export abstract class BaseService {
@@ -36,17 +37,23 @@ export abstract class BaseService {
   }
 
   create(entity: any): Observable<any> {
-    return this.http.post(this.getUrl(), entity);
+    return this.http.post(this.getUrl(), entity).pipe(
+      tap( () => this.getAll() )
+    );
   }
 
   update(id: number | string, entity: any): Observable<any> {
     const url = `${this.getUrl()}/${id}`;
-    return this.http.put(url, entity);
+    return this.http.put(url, entity).pipe(
+      tap( () => this.getAll() )
+    );
   }
 
   delete(id: number | string): Observable<any> {
     const url = `${this.getUrl()}/${id}`;
-    return this.http.delete(url);
+    return this.http.delete(url).pipe(
+      tap( () => this.getAll() )
+    );
   }
 
 }
