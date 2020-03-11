@@ -8,7 +8,7 @@ export abstract class BaseService {
 
   apiEndpoint = ``;
   protected entityName = ``;
-  watcher$: BehaviorSubject<any> = new BehaviorSubject([]);
+  watcher$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
   constructor(
     public config: ConfigService,
@@ -22,7 +22,7 @@ export abstract class BaseService {
   getAll(): void {
     console.log(this.getUrl());
     this.http.get(this.getUrl()).toPromise().then(
-      list => this.watcher$.next(list),
+      list => this.watcher$.next((list as any[])),
       err => {
         console.error(err);
         this.watcher$.next([]);

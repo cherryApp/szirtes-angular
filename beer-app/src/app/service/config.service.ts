@@ -17,5 +17,15 @@ export class ConfigService {
     {key: 'address', title: 'Address'},
   ];
 
+  beerColumns: Array<{key: string, title: string, hidden?: boolean}> = [
+    {key: 'id', title: '#'},
+    {key: 'name', title: 'Name'},
+    {key: 'strongness', title: 'Strong'},
+    {key: 'volume', title: 'Vol.'},
+    {key: 'manufacturer', title: 'Man.', hidden: true},
+    {key: 'price', title: 'Price'},
+    {key: 'actions', title: 'Actions'},
+  ];
+
   constructor() { }
 }
